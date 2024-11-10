@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology with Love</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ffe5ec, #ffcccc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page {
+            display: none;
+            text-align: center;
+            color: #333;
+            transition: opacity 0.8s ease;
+            opacity: 0;
+        }
+        .show { display: flex !important; opacity: 1; }
 
+        .text {
+            font-size: 1.5rem;
+            margin: 20px;
+            max-width: 80%;
+            color: #d46a6a;
+            line-height: 1.5;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #f28b82;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #f45c42;
+        }
+        /* Flower Bloom Animation */
+        .flower-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: bloom 2s ease-out forwards;
+        }
+        .petal {
+            width: 30px;
+            height: 80px;
+            background-color: #ff6b6b;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            transform-origin: bottom;
+        }
+        .petal:nth-child(1) { transform: rotate(0deg); }
+        .petal:nth-child(2) { transform: rotate(45deg); }
+        .petal:nth-child(3) { transform: rotate(90deg); }
+        .petal:nth-child(4) { transform: rotate(135deg); }
+        .petal:nth-child(5) { transform: rotate(180deg); }
+        .petal:nth-child(6) { transform: rotate(225deg); }
+        .petal:nth-child(7) { transform: rotate(270deg); }
+        .petal:nth-child(8) { transform: rotate(315deg); }
+        .center {
+            width: 30px;
+            height: 30px;
+            background-color: #ffb6b6;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        /* Floating Hearts */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #f45c42;
+            clip-path: polygon(50% 0%, 61% 19%, 85% 25%, 73% 48%, 79% 75%, 50% 63%, 21% 75%, 27% 48%, 15% 25%, 39% 19%);
+            animation: floatHeart 6s infinite;
+        }
+        @keyframes floatHeart {
+            0% { transform: scale(0.5) translateY(0) rotate(0deg); opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { transform: scale(1.2) translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1 -->
+    <div id="page1" class="page show">
+        <div class="text">Hey, I'm truly sorry. I realized how much you mean to me, and how wrong I was. Please, let me make it right.</div>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <!-- Page 2 -->
+    <div id="page2" class="page">
+        <div class="text">My love for you is like a flower, always growing, always blooming...</div>
+        <div class="flower-container">
+            <div class="center"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <button onclick="nextPage()">Accept Apology</button>
+    </div>
+
+    <!-- Page 3 -->
+    <div id="page3" class="page">
+        <div class="text">Thank you for giving me a chance. You have my heart, now and always.</div>
+    </div>
+
+    <!-- Heart Animation Container -->
+    <div id="hearts" class="hearts"></div>
+
+    <script>
+        let currentPage = 1;
+
+        function nextPage() {
+            document.getElementById(`page${currentPage}`).classList.remove('show'); // Hide current page
+            currentPage++;
+            document.getElementById(`page${currentPage}`).classList.add('show'); // Show next page
+
+            // Show hearts animation on the last page
+            if (currentPage === 3) {
+                showHearts();
+            }
+        }
+
+        function showHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                heartsContainer.appendChild(heart);
+
+                // Remove heart after animation
+                setTimeout(() => heart.remove(), 6000);
+            }
+        }
+    </script>
+
+</body>
+</html>
